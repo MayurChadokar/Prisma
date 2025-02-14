@@ -19,7 +19,7 @@ jobs:
       
       - name: Build Docker image
         run: |
-         docker build -t mayurchadokar/prism -f ./Dockerfile . 
+         docker build -t mayurchadokar/prism . 
       
    
 
