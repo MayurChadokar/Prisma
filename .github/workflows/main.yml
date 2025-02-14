@@ -17,9 +17,11 @@ jobs:
       - name: login to docker hub
         run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p ${{ secrets.DOCKER_PASSWORD}} 
       
-      - name: Build docker image  
-        run: docker build -t mayurchadokar/prism -f "C:\Users\mayur\OneDrive\Desktop\Prisma\Dockerfile" "C:\Users\mayur\OneDrive\Desktop\Prisma".
+      - name: Build Docker image
+        run: |
+          docker build -t ***/prism -f ./Dockerfile .
       
+   
 
       - name: Push docker image to docker hub  
         run: docker push mayurchadokar/prism:latest 
