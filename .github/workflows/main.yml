@@ -16,8 +16,10 @@ jobs:
 
       - name: login to docker hub
         run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p ${{ secrets.DOCKER_PASSWORD}} 
-      
+      - name: Ls console
+        run: ls
       - name: Build Docker image
+        
         run: |
          docker build -t "${{secrets.DOCKER_USERNAME}}"/prisma . 
       
