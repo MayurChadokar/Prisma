@@ -37,4 +37,4 @@ jobs:
       - name: Delete old container
         run: docker rm -f prisma-container || true
       - name: Run docker container   
-        run: docker run -d --env-file .env -p $PORT:$PORT --name prisma-container "${{secrets.DOCKER_USERNAME}}"/prisma:latest
+        run: docker run -d -p 3000:3000 --name prisma-container "${{secrets.DOCKER_USERNAME}}"/prisma:latest

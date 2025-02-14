@@ -14,8 +14,6 @@ RUN npm install
 COPY . .
 
 # Expose the port the app runs on
-ARG PORT=3000
-ENV PORT=${PORT}
-EXPOSE ${PORT}
+EXPOSE  3000 
 # Command to run the application
 CMD ["node", "index.js"]
