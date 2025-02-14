@@ -19,20 +19,20 @@ jobs:
       
       - name: Build Docker image
         run: |
-         docker build -t mayurchadokar/prism . 
+         docker build -t mayurchadokar/prisma . 
       
    
 
       - name: Push docker image to docker hub  
-        run: docker push mayurchadokar/prism:latest 
+        run: docker push mayurchadokar/prisma:latest 
         
   deploy:
      needs: build
      runs-on: [aws-ec2]
      steps:
       - name: Pull image from docker hub
-        run: docker pull mayurchadokar/prism:latest
+        run: docker pull mayurchadokar/prisma:latest
       - name: Delete old container
-        run: docker rm -f prism-container || true
+        run: docker rm -f prisma-container || true
       - name: Run docker container   
-        run: docker run -d -p 4000:4000 --name prism-container mayurchadokar/prism:latest
+        run: docker run -d -p 4000:4000 --name prisma-container mayurchadokar/prisma:latest
