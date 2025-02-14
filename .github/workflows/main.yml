@@ -1,0 +1,35 @@
+name: Deploy Node.js App with Docker on EC2
+
+on:
+  push:
+    branches: -[main]
+        # Triggers deployment when code is pushed to the main branch
+
+jobs:
+  build:
+
+      # Ensures it runs on your EC2 self-hosted runner
+     runs-on: self-hosted
+     steps:
+      - name : Checkout code
+        uses: actions/checkout@v2
+
+      - name: login to docker hub
+        run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p ${{ secrets.DOCKER_PASSWORD}} 
+      
+      - name: Build docker image  
+        run: docker build -t mayurchadokar/prism  .      
+
+      - name: Push docker image to docker hub  
+        run: docker push mayurchadokar/prism:latest 
+        
+  deploy:
+     needs: build
+     runs-on: [aws-ec2]
+     steps:
+      - name: Pull image from docker hub
+        run: docker pull mayurchadokar/prism:latest
+      - name: Delete old container
+        run: docker rm -f prism-container || true
+      - name: Run docker container   
+        run: docker run -d -p 4000:4000 --name prism-container mayurchadokar/prism:latest
